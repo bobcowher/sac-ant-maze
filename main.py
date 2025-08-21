@@ -12,7 +12,7 @@ from torch.utils.tensorboard import SummaryWriter
 if __name__ == '__main__':
 
     replay_buffer_size = 10000000
-    episodes = 10000
+    episodes = 1000
     warmup = 20
     batch_size = 64
     updates_per_step = 1
@@ -54,6 +54,8 @@ if __name__ == '__main__':
     # Training Loop
     total_numsteps = 0
     updates = 0
+
+    start_time = time.perf_counter()
 
     for i_episode in range(episodes):
         episode_reward = 0
@@ -105,5 +107,12 @@ if __name__ == '__main__':
         if i_episode % 10 == 0:
             agent.save_checkpoint(env_name=env_name)
 
+
+
+    end_time = time.perf_counter()
+
+    elapsed_time = end_time - start_time
+
+    print(f"Elapsed time was: {elapsed_time}")
 
     env.close()
